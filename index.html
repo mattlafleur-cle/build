@@ -136,7 +136,7 @@ a{color:inherit;text-decoration:none}
 
 /* The nav is sticky, so jumping here from the menu used to tuck a section's
    first line up underneath it. Park anchored sections below the bar. */
-#about,#method,#rooms,#facilitator{scroll-margin-top:135px}
+#about,#method,#rooms,#locations,#facilitator{scroll-margin-top:135px}
 
 /* ---------- hero ---------- */
 .hero{position:relative;background:var(--black);overflow:hidden;isolation:isolate}
@@ -283,8 +283,46 @@ a{color:inherit;text-decoration:none}
   font-size:11.5px;color:rgba(255,255,255,.42);
 }
 .foot .flogo{height:52px;width:auto;margin-bottom:20px}
+
+/* ---------- locations ---------- */
+.locations{background:var(--ink-2)}
+.locmap{margin-top:48px;border:1px solid var(--line);background:rgba(255,255,255,.02);padding:24px 24px 8px}
+.locmap svg{width:100%;height:auto;display:block}
+.locmap .shoreline{fill:none;stroke:rgba(255,255,255,.14);stroke-width:1.5}
+.locmap .maplabel{font:700 9px/1 'Montserrat',sans-serif;letter-spacing:.18em;fill:rgba(255,255,255,.28)}
+.locmap .compass line{stroke:rgba(255,255,255,.35);stroke-width:1.4}
+.locmap .compass path{fill:rgba(255,255,255,.35)}
+.locmap .compass text{font:800 10px/1 'Montserrat',sans-serif;fill:rgba(255,255,255,.4)}
+.locmap .landmark circle{fill:rgba(255,255,255,.32)}
+.locmap .landmark text{font:600 11px/1 'Montserrat',sans-serif;fill:rgba(255,255,255,.4)}
+.locmap .pin .ring{fill:none;stroke:var(--gold);stroke-width:1.4;opacity:.55;transform-box:fill-box;transform-origin:center}
+.locmap .pin .dot{fill:var(--gold)}
+.locmap .pin.new .ring{stroke:var(--orange)}
+.locmap .pin.new .dot{fill:var(--orange)}
+.locmap .pinlabel{font:800 12px/1 'Montserrat',sans-serif;letter-spacing:.07em;fill:#fff}
+.locmap .pintag{font:700 9px/1 'Montserrat',sans-serif;letter-spacing:.13em;text-transform:uppercase;fill:rgba(255,255,255,.5)}
+.locmap .pin.est .pintag{fill:var(--gold)}
+.locmap .pin.new .pintag{fill:var(--orange)}
+@media (prefers-reduced-motion:no-preference){
+  .locmap .pin .ring{animation:pinpulse 2.6s ease-in-out infinite}
+}
+@keyframes pinpulse{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.12;transform:scale(1.4)}}
+.mapnote{margin:8px 2px 0;font-size:11px;color:rgba(255,255,255,.32);text-align:right}
+.loclist{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
+.loc{border:1px solid var(--line);padding:26px;display:flex;flex-direction:column}
+.loc .loctag{align-self:flex-start;font-weight:800;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;padding:4px 10px;border:1px solid currentColor;margin-bottom:16px}
+.loc.est .loctag{color:var(--gold)}
+.loc.new .loctag{color:var(--orange)}
+.loc.soon .loctag{color:rgba(255,255,255,.4);border-color:rgba(255,255,255,.25)}
+.loc h4{margin:0 0 4px;font-weight:300;font-size:clamp(20px,2vw,25px)}
+.loc .locvenue{margin:0;font-weight:700;font-size:14px;color:rgba(255,255,255,.85)}
+.loc .locaddr{margin:2px 0 0;font-size:13px;color:rgba(255,255,255,.5)}
+.loc .loctime{margin:14px 0 0;font-size:13px;color:var(--muted)}
+.loc .btn{margin-top:20px;align-self:flex-start}
+.loc.soon p{margin:0;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.5)}
 /* ---------- responsive ---------- */
 @media (max-width:1000px){
+  .loclist{grid-template-columns:repeat(2,1fr)}
   .grid{grid-template-columns:repeat(2,1fr)}
   .cell.tall{grid-row:span 1;min-height:300px}
   .stagerow{grid-template-columns:repeat(2,1fr);gap:36px}
@@ -310,11 +348,12 @@ a{color:inherit;text-decoration:none}
   .nav .wrap{flex-wrap:wrap;gap:12px}
   .nav img{height:76px}
   /* nav wraps to two rows here, so it needs more clearance */
-  #about,#method,#rooms,#facilitator{scroll-margin-top:180px}
+  #about,#method,#rooms,#locations,#facilitator{scroll-margin-top:180px}
   .navlinks{flex:1 0 100%;gap:16px 18px;justify-content:flex-start}
   .navlinks a{font-size:10.5px;letter-spacing:.11em}
 }
 @media (max-width:620px){
+  .loclist{grid-template-columns:1fr}
   .grid{grid-template-columns:1fr}
   .cell.wide{grid-column:span 1}
   .stagerow{grid-template-columns:1fr}
@@ -340,6 +379,7 @@ a{color:inherit;text-decoration:none}
       <a href="#about">About</a>
       <a href="#method">The Method</a>
       <a href="#rooms">Find a Room</a>
+      <a href="#locations">Locations</a>
       <a href="#facilitator">Become a Facilitator</a>
     </div>
   </div>
@@ -658,6 +698,106 @@ a{color:inherit;text-decoration:none}
   </div>
 </section>
 
+<!-- ============ LOCATIONS ============ -->
+<section class="locations" id="locations">
+  <div class="wrap">
+    <p class="eyebrow">Locations</p>
+    <h2 class="h2">Five rooms.<br>One drive from anywhere in Northeast Ohio.</h2>
+    <p class="lead">Same format, same five moves, different table. Pick the city closest to you and pull up a chair.</p>
+
+    <div class="locmap">
+      <svg viewBox="0 0 760 420" role="img" aria-labelledby="locmapTitle" preserveAspectRatio="xMidYMid meet">
+        <title id="locmapTitle">Map of BUILD room locations across Northeast Ohio</title>
+
+        <path class="shoreline" d="M-10,58 C 120,30 260,74 400,46 C 540,20 660,52 770,34"></path>
+        <text class="maplabel" x="30" y="24">LAKE ERIE</text>
+
+        <g class="compass" transform="translate(716,32)">
+          <line x1="0" y1="16" x2="0" y2="-8"></line>
+          <path d="M0,-8 L-4,-1 L4,-1 Z"></path>
+          <text x="0" y="30" text-anchor="middle">N</text>
+        </g>
+
+        <g class="landmark" transform="translate(430,138)">
+          <circle r="4"></circle>
+          <text x="10" y="4">Cleveland</text>
+        </g>
+
+        <g class="pin new" transform="translate(150,116)">
+          <circle class="ring" r="15"></circle>
+          <circle class="dot" r="6"></circle>
+          <text class="pinlabel" x="0" y="-24" text-anchor="middle">AVON</text>
+          <text class="pintag" x="0" y="34" text-anchor="middle">New</text>
+        </g>
+
+        <g class="pin est" transform="translate(478,202)">
+          <circle class="ring" r="15"></circle>
+          <circle class="dot" r="6"></circle>
+          <text class="pinlabel" x="0" y="-24" text-anchor="middle">INDEPENDENCE</text>
+          <text class="pintag" x="0" y="34" text-anchor="middle">Established</text>
+        </g>
+
+        <g class="pin new" transform="translate(272,326)">
+          <circle class="ring" r="15"></circle>
+          <circle class="dot" r="6"></circle>
+          <text class="pinlabel" x="0" y="-24" text-anchor="middle">MEDINA</text>
+          <text class="pintag" x="0" y="34" text-anchor="middle">New</text>
+        </g>
+
+        <g class="pin est" transform="translate(486,362)">
+          <circle class="ring" r="15"></circle>
+          <circle class="dot" r="6"></circle>
+          <text class="pinlabel" x="0" y="-24" text-anchor="middle">AKRON</text>
+          <text class="pintag" x="0" y="34" text-anchor="middle">Established</text>
+        </g>
+      </svg>
+      <p class="mapnote">Illustrative map, not to scale.</p>
+    </div>
+
+    <!-- PLACEHOLDER DATA below — swap each venue name, address, meeting time, and Eventbrite
+         link for the real thing. Nothing here has been booked or confirmed. -->
+    <div class="loclist">
+      <div class="loc est">
+        <span class="loctag">Established</span>
+        <h4>Akron</h4>
+        <p class="locvenue">The Foundry Room</p>
+        <p class="locaddr">45 E Mill St, Akron, OH 44308</p>
+        <p class="loctime">2nd Tuesday of the month · 7:30–9:00 AM</p>
+        <a class="btn" href="#">RSVP on Eventbrite</a>
+      </div>
+      <div class="loc est">
+        <span class="loctag">Established</span>
+        <h4>Independence</h4>
+        <p class="locvenue">Riverbend Conference Center</p>
+        <p class="locaddr">6200 Rockside Woods Blvd, Independence, OH 44131</p>
+        <p class="loctime">1st Wednesday of the month · 5:30–7:00 PM</p>
+        <a class="btn" href="#">RSVP on Eventbrite</a>
+      </div>
+      <div class="loc new">
+        <span class="loctag">New</span>
+        <h4>Avon</h4>
+        <p class="locvenue">Lakeshore Meeting House</p>
+        <p class="locaddr">36500 Chester Rd, Avon, OH 44011</p>
+        <p class="loctime">3rd Thursday of the month · 12:00–1:30 PM</p>
+        <a class="btn" href="#">RSVP on Eventbrite</a>
+      </div>
+      <div class="loc new">
+        <span class="loctag">New</span>
+        <h4>Medina</h4>
+        <p class="locvenue">The Uptown Room</p>
+        <p class="locaddr">128 S Court St, Medina, OH 44256</p>
+        <p class="loctime">4th Monday of the month · 7:00–8:30 AM</p>
+        <a class="btn" href="#">RSVP on Eventbrite</a>
+      </div>
+      <div class="loc soon">
+        <span class="loctag">Coming Soon</span>
+        <h4>A Fifth Room</h4>
+        <p>We're scouting the next city now. Check back soon for the announcement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ FACILITATOR ============ -->
 <section class="facil" id="facilitator">
   <div class="wrap">
@@ -693,6 +833,7 @@ a{color:inherit;text-decoration:none}
       <div class="fcol">
         <h5>For Business Owners</h5>
         <a href="#rooms">Find a Room</a>
+        <a href="#locations">Locations</a>
         <a href="#method">The Five A’s</a>
         <a href="#method">The Toolbox</a>
         <a href="#method">Member Stories</a>
