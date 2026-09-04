@@ -326,6 +326,11 @@ a{color:inherit;text-decoration:none}
 .loc .loctime{margin:14px 0 0;font-size:13px;color:var(--muted)}
 .loc .btn{margin-top:20px;align-self:flex-start}
 .loc.soon p{margin:0;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.5)}
+.zipmsg{margin:14px 0 0;font-size:12.5px;line-height:1.5;color:rgba(255,255,255,.65);min-height:1.5em}
+.zipmsg.err{color:var(--orange)}
+.zipmsg.ok{color:var(--gold);font-weight:700}
+.loc{transition:box-shadow .3s ease,border-color .3s ease}
+.loc.loc-match{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
 /* ---------- responsive ---------- */
 @media (max-width:1000px){
   .loclist{grid-template-columns:repeat(2,1fr)}
@@ -657,8 +662,9 @@ a{color:inherit;text-decoration:none}
       </div>
       <div class="finder">
         <span class="label">Enter your ZIP to find a room near you</span>
-        <input type="text" placeholder="44221" aria-label="ZIP code">
-        <a class="btn" href="#rooms">Find your room</a>
+        <input type="text" id="zipInput" inputmode="numeric" pattern="[0-9]*" maxlength="5" placeholder="44221" aria-label="ZIP code">
+        <button type="button" class="btn" id="zipBtn">Find your room</button>
+        <p id="zipMsg" class="zipmsg" aria-live="polite"></p>
       </div>
     </div>
 
@@ -792,7 +798,7 @@ a{color:inherit;text-decoration:none}
     <!-- PLACEHOLDER DATA below — swap each venue name, address, meeting time, and Eventbrite
          link for the real thing. Nothing here has been booked or confirmed. -->
     <div class="loclist">
-      <div class="loc est">
+      <div class="loc est" data-city="Akron" data-lat="41.0814" data-lon="-81.5190">
         <span class="loctag">Established</span>
         <h4>Akron</h4>
         <p class="locvenue">The Foundry Room</p>
@@ -800,7 +806,7 @@ a{color:inherit;text-decoration:none}
         <p class="loctime">2nd Tuesday of the month · 7:30–9:00 AM</p>
         <a class="btn" href="#">RSVP on Eventbrite</a>
       </div>
-      <div class="loc est">
+      <div class="loc est" data-city="Independence" data-lat="41.3820" data-lon="-81.6395">
         <span class="loctag">Established</span>
         <h4>Independence</h4>
         <p class="locvenue">Riverbend Conference Center</p>
@@ -808,7 +814,7 @@ a{color:inherit;text-decoration:none}
         <p class="loctime">1st Wednesday of the month · 5:30–7:00 PM</p>
         <a class="btn" href="#">RSVP on Eventbrite</a>
       </div>
-      <div class="loc new">
+      <div class="loc new" data-city="Avon" data-lat="41.4523" data-lon="-82.0293">
         <span class="loctag">New</span>
         <h4>Avon</h4>
         <p class="locvenue">Lakeshore Meeting House</p>
@@ -816,7 +822,7 @@ a{color:inherit;text-decoration:none}
         <p class="loctime">3rd Thursday of the month · 12:00–1:30 PM</p>
         <a class="btn" href="#">RSVP on Eventbrite</a>
       </div>
-      <div class="loc new">
+      <div class="loc new" data-city="Medina" data-lat="41.1384" data-lon="-81.8637">
         <span class="loctag">New</span>
         <h4>Medina</h4>
         <p class="locvenue">The Uptown Room</p>
@@ -903,5 +909,77 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
 </footer>
+
+<script>
+(function(){
+  var input = document.getElementById('zipInput');
+  var btn = document.getElementById('zipBtn');
+  var msg = document.getElementById('zipMsg');
+  if(!input || !btn || !msg) return;
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.loc[data-lat]'));
+
+  function toRad(d){ return d * Math.PI / 180; }
+  function distMiles(lat1, lon1, lat2, lon2){
+    var R = 3958.8;
+    var dLat = toRad(lat2 - lat1), dLon = toRad(lon2 - lon1);
+    var a = Math.sin(dLat/2)*Math.sin(dLat/2) +
+            Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)*Math.sin(dLon/2);
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  }
+  function clearHighlights(){ cards.forEach(function(c){ c.classList.remove('loc-match'); }); }
+  function showMsg(text, type){
+    msg.textContent = text;
+    msg.className = 'zipmsg' + (type ? ' ' + type : '');
+  }
+
+  function findNearest(){
+    var zip = (input.value || '').trim();
+    if(!/^\d{5}$/.test(zip)){
+      showMsg('Enter a valid 5-digit ZIP code.', 'err');
+      return;
+    }
+    clearHighlights();
+    btn.disabled = true;
+    var originalLabel = btn.textContent;
+    btn.textContent = 'Searching…';
+    showMsg('Looking up ' + zip + '…');
+
+    fetch('https://api.zippopotam.us/us/' + zip)
+      .then(function(res){
+        if(!res.ok) throw new Error('not-found');
+        return res.json();
+      })
+      .then(function(data){
+        var place = data.places && data.places[0];
+        if(!place) throw new Error('not-found');
+        var lat = parseFloat(place.latitude), lon = parseFloat(place.longitude);
+        var best = null, bestDist = Infinity;
+        cards.forEach(function(c){
+          var clat = parseFloat(c.getAttribute('data-lat'));
+          var clon = parseFloat(c.getAttribute('data-lon'));
+          var d = distMiles(lat, lon, clat, clon);
+          if(d < bestDist){ bestDist = d; best = c; }
+        });
+        if(!best) throw new Error('no-locations');
+        best.classList.add('loc-match');
+        showMsg('Your closest room is ' + best.getAttribute('data-city') +
+                ' — about ' + Math.round(bestDist) + ' miles away.', 'ok');
+        best.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      })
+      .catch(function(){
+        showMsg("We couldn't find that ZIP code. Double-check it and try again.", 'err');
+      })
+      .finally(function(){
+        btn.disabled = false;
+        btn.textContent = originalLabel;
+      });
+  }
+
+  btn.addEventListener('click', findNearest);
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ e.preventDefault(); findNearest(); }
+  });
+})();
+</script>
 </body>
 </html>
