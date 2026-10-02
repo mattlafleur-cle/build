@@ -412,7 +412,7 @@ section[id]{scroll-margin-top:100px}
 
 /* ---------- BUILD acronym ---------- */
 .eyebrow.acrohero{font-size:clamp(14px,1.6vw,19px);letter-spacing:.2em;color:rgba(240,179,35,.82);margin-bottom:24px}
-.eyebrow.acrohero b{color:#fff;font-size:1.3em;font-weight:800;letter-spacing:.06em}
+.eyebrow.acrohero b{color:inherit;font-size:1.3em;font-weight:800;letter-spacing:.06em}
 .acrofoot b{color:var(--gold);font-weight:800}
 .acro{background:var(--ink)}
 .acrogrid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
