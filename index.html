@@ -3,373 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BUILD | Business United In Leadership Development</title>
-<meta name="description" content="BUILD helps business owners grow stronger businesses and stronger leaders through community, accountability, education, and strategic relationships. Rooms across Northeast Ohio.">
+<title>BUILD | Business Owner Networking Groups in Northeast Ohio</title>
+<meta name="description" content="Monthly breakfasts and lunches where Northeast Ohio business owners and leaders build each other up. Rooms in Akron and Independence, with Avon and Medina coming soon.">
+<link rel="canonical" href="https://buildowners.com/">
+<meta property="og:type" content="website">
 <meta property="og:title" content="BUILD | Business United In Leadership Development">
 <meta property="og:description" content="Nobody builds it alone. Find a BUILD room near you in Northeast Ohio.">
 <meta property="og:image" content="https://buildowners.com/assets/breakfast.jpg">
 <meta property="og:url" content="https://buildowners.com/">
 <meta name="theme-color" content="#231F20">
-<link rel="preload" href="assets/montserrat.woff2" as="font" type="font/woff2" crossorigin>
-<style>
-@font-face{font-family:'Montserrat';font-style:normal;font-weight:300 800;font-display:swap;src:url(assets/montserrat.woff2) format('woff2-variations'),url(assets/montserrat.woff2) format('woff2');}
-
-:root{
-  --gold:#F0B323;
-  --amber:#E58A1F;
-  --orange:#D86018;
-  --red:#9D2235;
-  --wine:#6E1A2A;
-  --black:#231F20;
-  --ink:#141112;
-  --ink-2:#1C1819;
-  --ink-3:#252022;
-  --cream:#FAF4E8;
-  --paper:#ffffff;
-  --line:rgba(240,179,35,.22);
-  --hair:rgba(255,255,255,.12);
-  --muted:rgba(255,255,255,.64);
-  --muted-dark:rgba(35,31,32,.68);
-  --wrap:1240px;
-  --pad:clamp(16px,5vw,64px);
-  --sec:clamp(60px,9vw,112px);
-}
-
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{
-  margin:0;background:var(--ink);color:#fff;
-  font-family:'Montserrat',"Segoe UI",system-ui,-apple-system,sans-serif;
-  font-weight:500;font-size:16px;line-height:1.65;overflow-x:hidden;
-}
-img{max-width:100%;display:block}
-a{color:inherit;text-decoration:none}
-:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.light :focus-visible{outline-color:var(--red)}
-.wrap{max-width:var(--wrap);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
-.sec{padding-top:var(--sec);padding-bottom:var(--sec)}
-.skip{position:absolute;left:-999px;top:0;background:var(--gold);color:var(--black);padding:10px 16px;font-weight:800;z-index:100}
-.skip:focus{left:12px;top:12px}
-
-/* ---------- type ---------- */
-.eyebrow{font-weight:800;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0 0 18px}
-.display{font-weight:300;font-size:clamp(38px,6.6vw,86px);line-height:1.02;letter-spacing:.05em;text-transform:uppercase;margin:0;text-wrap:balance}
-.h2{font-weight:300;font-size:clamp(28px,3.8vw,48px);line-height:1.1;letter-spacing:.02em;margin:0 0 20px;text-wrap:balance}
-.lead{font-size:clamp(16px,1.5vw,19px);line-height:1.6;color:var(--muted);max-width:60ch;margin:0}
-.light .lead{color:var(--muted-dark)}
-.label{font-weight:800;font-size:11px;letter-spacing:.19em;text-transform:uppercase}
-.sechead{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,72px);align-items:end;margin-bottom:clamp(36px,5vw,60px)}
-.sechead .h2{margin:0}
-.step-tag{display:inline-flex;align-items:center;gap:10px}
-.step-tag i{font-style:normal;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--gold);color:var(--black);font-size:11px;letter-spacing:0}
-
-/* ---------- buttons ---------- */
-.btn{display:inline-block;padding:15px 28px;font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;background:var(--gold);color:var(--black);border:1px solid var(--gold);transition:background .2s,color .2s,border-color .2s;cursor:pointer;font-family:inherit;text-align:center}
-.btn:hover{background:transparent;color:var(--gold)}
-.btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.42)}
-.btn.ghost:hover{background:#fff;color:var(--black);border-color:#fff}
-.btn.dark{background:var(--black);color:#fff;border-color:var(--black)}
-.btn.dark:hover{background:transparent;color:var(--black)}
-.btn.soon{background:transparent;color:rgba(255,255,255,.45);border-color:rgba(255,255,255,.25);cursor:default}
-.btn.soon:hover{color:rgba(255,255,255,.45)}
-
-/* ---------- nav ---------- */
-.nav{background:var(--black);position:sticky;top:0;z-index:60;border-bottom:1px solid rgba(240,179,35,.28)}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:10px;padding-bottom:10px}
-/* The reverse logo PNG ships with a thin white keyline; trim it so the
-   logo sits black-on-black. */
-.nav img{height:72px;width:auto;clip-path:inset(6% 0 0 1.6%)}
-.navlinks{display:flex;align-items:center;gap:clamp(14px,2.2vw,30px);flex-wrap:wrap}
-.navlinks a{color:#fff;font-weight:700;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
-.navlinks a:hover{color:var(--gold)}
-.navlinks a.navcta{border:1px solid var(--gold);color:var(--gold);padding:10px 16px}
-.navlinks a.navcta:hover{background:var(--gold);color:var(--black)}
-section[id]{scroll-margin-top:100px}
-
-/* ---------- hero ---------- */
-.hero{position:relative;background:var(--black);overflow:hidden;isolation:isolate}
-.hero svg.terrain{position:absolute;inset:0;width:100%;height:100%;z-index:0}
-.hero .wrap{position:relative;z-index:2;padding-top:clamp(48px,7vw,104px);padding-bottom:clamp(56px,8vw,120px)}
-.hero .display{max-width:15ch}
-.hero .lead{margin-top:28px;max-width:46ch;color:rgba(255,255,255,.78)}
-.hero .cta{margin-top:40px;display:flex;gap:14px;flex-wrap:wrap}
-
-/* ---------- pillars ---------- */
-.pillars{background:var(--gold);color:var(--black)}
-.pillars ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr)}
-.pillars li{padding:20px 12px;text-align:center;font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;border-left:1px solid rgba(35,31,32,.18)}
-.pillars li:first-child{border-left:none}
-.pillars li span{display:block;font-weight:500;letter-spacing:.04em;text-transform:none;font-size:13px;opacity:.75;margin-top:2px}
-
-/* ---------- journey ---------- */
-.journey{background:var(--ink)}
-.jsteps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative}
-.jstep{position:relative;padding:0 18px 0 0}
-.jstep a{display:block;height:100%}
-.jicon{position:relative;z-index:1;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:22px;border:2px solid currentColor}
-.jicon svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.jstep:nth-child(1){color:var(--gold)}
-.jstep:nth-child(2){color:var(--amber)}
-.jstep:nth-child(3){color:var(--orange)}
-.jstep:nth-child(4){color:#C8433A}
-.jstep:nth-child(5){color:#E0566B}
-.jstep::after{content:'';position:absolute;top:32px;left:72px;right:8px;height:2px;background:linear-gradient(90deg,currentColor,rgba(255,255,255,.08))}
-.jstep:last-child::after{display:none}
-.jstep h3{margin:0 0 8px;font-weight:800;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
-.jstep h3 b{opacity:.6;margin-right:6px}
-.jstep p{margin:0 0 12px;font-size:14px;line-height:1.6;color:rgba(255,255,255,.68)}
-.jstep .go{font-weight:800;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#fff;opacity:.55;transition:opacity .2s}
-.jstep a:hover .go{opacity:1}
-
-/* ---------- rooms ---------- */
-.rooms{background:var(--ink-2)}
-.moves{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
-.move{background:var(--ink-3);padding:30px;border-top:3px solid var(--gold)}
-.move:nth-child(2){border-top-color:var(--orange)}
-.move:nth-child(3){border-top-color:var(--red)}
-.move .label{color:var(--gold);display:block;margin-bottom:14px}
-.move h3{margin:0 0 10px;font-weight:300;font-size:clamp(21px,2vw,26px);line-height:1.2}
-.move p{margin:0;font-size:14.5px;color:rgba(255,255,255,.68)}
-.move ol{margin:0;padding-left:20px;font-size:14.5px;color:rgba(255,255,255,.78);line-height:1.9}
-.roomtypes{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:clamp(40px,5vw,56px)}
-.room{position:relative;overflow:hidden;min-height:280px;display:flex;align-items:flex-end;background:var(--ink-3)}
-.room img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:grayscale(1) brightness(.55);transition:filter .4s}
-.room:hover img{filter:grayscale(.3) brightness(.6)}
-.room .rs{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(20,17,18,0) 25%,rgba(20,17,18,.94) 100%)}
-.room .rin{position:relative;z-index:2;padding:22px}
-.room h3{margin:0 0 7px;font-weight:800;font-size:12px;letter-spacing:.17em;text-transform:uppercase;color:var(--gold)}
-.room p{margin:0;font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.82)}
-
-/* ---------- locations ---------- */
-.locations{background:var(--ink)}
-.locgrid{display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(20px,3vw,36px);align-items:start}
-.locmap{border:1px solid var(--line);background:rgba(255,255,255,.02);padding:20px 20px 8px}
-.locmap svg{width:100%;height:auto;display:block}
-.locmap .lakefill{stroke:none}
-.locmap .lakeline{fill:none;stroke:#4A8A94;stroke-width:1.5}
-.locmap .wave{fill:none;stroke:rgba(197,226,230,.28);stroke-width:1.1}
-.locmap .maplabel{font:700 9px/1 'Montserrat',sans-serif;letter-spacing:.18em;fill:#A9CDD3}
-.locmap .hwy{fill:none;stroke:rgba(255,255,255,.24);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:1,5.5}
-.locmap .hwyshield{fill:rgba(255,255,255,.07);stroke:rgba(255,255,255,.3);stroke-width:1}
-.locmap .hwylabel{font:800 8.5px/1 'Montserrat',sans-serif;fill:rgba(255,255,255,.68);text-anchor:middle}
-.locmap .compass line{stroke:rgba(255,255,255,.35);stroke-width:1.4}
-.locmap .compass path{fill:rgba(255,255,255,.35)}
-.locmap .compass text{font:800 10px/1 'Montserrat',sans-serif;fill:rgba(255,255,255,.4)}
-.locmap .landmark .halo{fill:rgba(255,255,255,.09);stroke:rgba(255,255,255,.4);stroke-width:1.6}
-.locmap .landmark .core{fill:rgba(255,255,255,.55)}
-.locmap .landmark text{font:700 12px/1 'Montserrat',sans-serif;letter-spacing:.02em;fill:rgba(255,255,255,.58)}
-.locmap .pin .ring{fill:none;stroke:var(--gold);stroke-width:1.4;opacity:.55;transform-box:fill-box;transform-origin:center}
-.locmap .pin .dot{fill:var(--gold)}
-.locmap .pin.new .ring{stroke:var(--orange)}
-.locmap .pin.new .dot{fill:var(--orange)}
-.locmap .pinlabel{font:800 12px/1 'Montserrat',sans-serif;letter-spacing:.07em;fill:#fff}
-.locmap .pintag{font:700 9px/1 'Montserrat',sans-serif;letter-spacing:.13em;text-transform:uppercase;fill:rgba(255,255,255,.5)}
-.locmap .pin.est .pintag{fill:var(--gold)}
-.locmap .pin.new .pintag{fill:var(--orange)}
-.locmap .pin.soon .ring{stroke:rgba(255,255,255,.4)}
-.locmap .pin.soon .dot{fill:rgba(255,255,255,.55)}
-@media (prefers-reduced-motion:no-preference){.locmap .pin .ring{animation:pinpulse 2.6s ease-in-out infinite}}
-@keyframes pinpulse{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.12;transform:scale(1.4)}}
-.mapnote{margin:8px 2px 0;font-size:11px;color:rgba(255,255,255,.36);text-align:right}
-.finder{border:1px solid var(--line);padding:26px;background:var(--ink-2)}
-.finder .label{color:var(--gold);margin-bottom:14px;display:block}
-.finder form{display:flex;gap:10px}
-.finder input{flex:1;min-width:0;padding:14px 15px;background:#fff;border:none;font-family:inherit;font-size:16px;font-weight:500;color:var(--black)}
-.zipmsg{margin:12px 0 0;font-size:13px;line-height:1.5;color:rgba(255,255,255,.65);min-height:1.5em}
-.zipmsg.err{color:var(--orange)}
-.zipmsg.ok{color:var(--gold);font-weight:700}
-.finder .small{margin:14px 0 0;font-size:13px;color:rgba(255,255,255,.5)}
-.finder .small a{color:var(--gold);border-bottom:1px solid rgba(240,179,35,.4)}
-.loclist{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
-.loc{border:1px solid var(--line);padding:24px;display:flex;flex-direction:column;transition:box-shadow .3s ease,border-color .3s ease}
-.loc .loctag{align-self:flex-start;font-weight:800;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;padding:4px 10px;border:1px solid currentColor;margin-bottom:14px}
-.loc.est .loctag{color:var(--gold)}
-.loc.new .loctag{color:var(--orange)}
-.loc.soon .loctag{color:rgba(255,255,255,.45);border-color:rgba(255,255,255,.25)}
-.loc h3{margin:0 0 4px;font-weight:300;font-size:clamp(21px,2vw,25px)}
-.loc .loctype{margin:0 0 10px;font-weight:800;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
-.loc .locvenue{margin:0;font-weight:700;font-size:14px;color:rgba(255,255,255,.88)}
-.loc .locaddr{margin:2px 0 0;font-size:13px;color:rgba(255,255,255,.52)}
-.loc .loctime{margin:12px 0 0;font-size:13.5px;color:var(--muted)}
-.loc .btn{margin-top:auto;align-self:flex-start}
-.loc .loctime + .btn,.loc .loctime + span.btn{margin-top:18px}
-.loc.soon p{margin:0;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.52)}
-.loc.loc-match{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
-
-/* ---------- ecosystem ---------- */
-.eco{background:var(--ink-2)}
-.strata{display:flex;flex-direction:column;gap:6px}
-.stratum{display:grid;grid-template-columns:minmax(220px,300px) 1fr;align-items:stretch}
-.stratum .sname{padding:24px 26px;color:#fff;display:flex;gap:16px;align-items:flex-start}
-.stratum .sname .num{flex:none;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.95);color:var(--black);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;margin-top:2px}
-.stratum h3{margin:0;font-weight:800;font-size:15px;letter-spacing:.14em;text-transform:uppercase}
-.stratum .sub{margin:2px 0 8px;font-size:13px;font-weight:700;opacity:.85}
-.stratum .why{margin:0;font-size:13.5px;line-height:1.5;opacity:.9}
-.stratum .sbody{background:var(--ink-3);padding:24px 26px;display:flex;align-items:center}
-.chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
-.chips li{font-size:13.5px;font-weight:600;padding:8px 14px;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.88);display:inline-flex;align-items:center;gap:8px}
-.chips li::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--gold)}
-.chips li.wip{color:rgba(255,255,255,.55);border-style:dashed}
-.chips li.wip::before{background:transparent;border:1.5px solid rgba(255,255,255,.45)}
-.s1 .sname{background:var(--gold);color:var(--black)}
-.s1 .sname .num{background:var(--black);color:var(--gold)}
-.s2 .sname{background:var(--amber);color:var(--black)}
-.s2 .sname .num{background:var(--black);color:var(--amber)}
-.s3 .sname{background:var(--orange)}
-.s4 .sname{background:var(--red)}
-.s5 .sname{background:var(--wine)}
-.legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:18px;font-size:12.5px;color:rgba(255,255,255,.55)}
-.legend span{display:inline-flex;align-items:center;gap:8px}
-.legend i{width:8px;height:8px;border-radius:50%;background:var(--gold)}
-.legend i.o{background:transparent;border:1.5px solid rgba(255,255,255,.45)}
-
-/* ---------- framework ---------- */
-.framework{background:var(--ink)}
-.stagerow{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
-.dot{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-weight:800;font-size:19px;color:var(--black)}
-.dot.g{background:var(--gold)}
-.dot.o{background:var(--orange);color:#fff}
-.dot.r{background:var(--red);color:#fff}
-.dot.k{background:transparent;border:2px solid var(--gold);color:var(--gold)}
-.stage h3{margin:0 0 4px;font-weight:800;font-size:13px;letter-spacing:.19em;text-transform:uppercase;color:#fff}
-.stage .tag{margin:0 0 12px;font-size:13px;font-weight:700;color:var(--gold)}
-.stage p{margin:0 0 14px;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.68)}
-.grad{font-size:13px;line-height:1.55;color:rgba(255,255,255,.5);border-left:2px solid var(--line);padding-left:13px}
-.grad b{display:block;color:var(--gold);font-weight:800;font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:5px}
-.method{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:14px;margin-top:clamp(48px,6vw,72px)}
-.mcell{padding:30px;border:1px solid var(--line);display:flex;flex-direction:column}
-.mcell .label{color:var(--gold);margin-bottom:16px}
-.mcell h3{margin:0 0 12px;font-weight:300;font-size:clamp(22px,2.2vw,28px);line-height:1.15}
-.mcell p{margin:0;font-size:14px;color:rgba(255,255,255,.66)}
-.mcell.gold{background:var(--gold);color:var(--black);border-color:var(--gold)}
-.mcell.gold .label{color:rgba(35,31,32,.62)}
-.fivea{margin:0;padding:0;list-style:none;font-size:14.5px;line-height:1.95;color:rgba(255,255,255,.82)}
-.fivea li{display:flex;gap:12px;align-items:baseline}
-.fivea b{color:var(--gold);font-weight:800;font-size:11px;letter-spacing:.14em;min-width:16px}
-
-/* ---------- membership ---------- */
-.members{background:var(--cream);color:var(--black)}
-.members .eyebrow{color:var(--orange)}
-.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.tier{background:#fff;display:flex;flex-direction:column;border:1px solid rgba(35,31,32,.1)}
-.tier .thead{padding:22px 28px;color:#fff}
-.tier .thead .label{display:block;opacity:.85;margin-bottom:6px}
-.tier .thead h3{margin:0;font-weight:300;font-size:clamp(24px,2.4vw,30px);line-height:1.1}
-.t1 .thead{background:var(--gold);color:var(--black)}
-.t2 .thead{background:var(--orange)}
-.t3 .thead{background:var(--red)}
-.tier .tbody{padding:26px 28px 30px;display:flex;flex-direction:column;flex:1}
-.tier .for{margin:0 0 18px;font-size:14.5px;color:var(--muted-dark)}
-.tier ul{list-style:none;margin:0 0 26px;padding:0}
-.tier li{padding:9px 0 9px 26px;border-bottom:1px solid rgba(35,31,32,.08);font-size:14.5px;position:relative}
-.tier li:last-child{border-bottom:none}
-.tier li::before{content:'';position:absolute;left:2px;top:15px;width:12px;height:7px;border-left:2px solid var(--orange);border-bottom:2px solid var(--orange);transform:rotate(-45deg)}
-.tier .plus{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(35,31,32,.5);margin:0 0 4px}
-.tier .price{margin:0 0 16px;font-size:13px;color:var(--muted-dark)}
-.tier .btn{margin-top:auto;align-self:stretch}
-
-/* ---------- team ---------- */
-.team{background:var(--paper);color:var(--black)}
-.team .eyebrow{color:var(--orange)}
-.founderrow{display:grid;grid-template-columns:repeat(2,1fr);gap:56px}
-.founder{display:grid;grid-template-columns:140px 1fr;gap:28px;align-items:start}
-.founder .fphoto{width:140px;height:140px;border-radius:50%;object-fit:cover;object-position:25% 30%;filter:grayscale(1)}
-.founder .fmono{width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--black);color:var(--gold);font-weight:800;font-size:36px}
-.founder h3{margin:0 0 4px;font-weight:700;font-size:20px}
-.founder .frole{margin:0 0 12px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange)}
-.founder .fbio{margin:0;font-size:14.5px;line-height:1.65;color:rgba(35,31,32,.74)}
-
-/* ---------- lead & give ---------- */
-.lead-give{background:linear-gradient(105deg,var(--gold) 0%,var(--orange) 50%,var(--red) 100%);color:#fff}
-.lead-give .eyebrow{color:rgba(255,255,255,.85)}
-.lead-give .eyebrow .step-tag i{background:#fff}
-.lead-give .h2{text-transform:uppercase;font-size:clamp(30px,4.4vw,56px);line-height:1.06}
-.lead-give .lead{color:rgba(255,255,255,.94)}
-.paths{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:clamp(36px,5vw,52px)}
-.path{background:rgba(20,17,18,.86);padding:30px;display:flex;flex-direction:column}
-.path .label{color:var(--gold);margin-bottom:14px}
-.path h3{margin:0 0 10px;font-weight:300;font-size:clamp(22px,2.2vw,28px);line-height:1.15}
-.path p{margin:0 0 22px;font-size:14.5px;color:rgba(255,255,255,.72)}
-.path .btn{margin-top:auto;align-self:flex-start}
-.needs{margin-top:14px;background:rgba(20,17,18,.86);padding:26px 30px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
-.needs .label{color:var(--gold)}
-.needs ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
-.needs li{text-align:center;border-top:2px solid var(--gold);padding-top:10px;font-weight:800;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase}
-.needs li span{display:block;font-weight:500;letter-spacing:0;text-transform:none;font-size:12.5px;color:rgba(255,255,255,.6);margin-top:4px}
-
-/* ---------- stay in the loop ---------- */
-.loop{background:var(--ink-2)}
-.loop .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(28px,5vw,72px);align-items:center}
-.flywheel{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
-.flywheel li{font-size:12.5px;font-weight:700;letter-spacing:.06em;padding:7px 12px;background:var(--ink-3);color:rgba(255,255,255,.75)}
-.loopcta{border:1px solid var(--line);padding:28px}
-.loopcta p{margin:0 0 18px;font-size:14.5px;color:rgba(255,255,255,.7)}
-.loopcta .row{display:flex;gap:12px;flex-wrap:wrap}
-
-/* ---------- footer ---------- */
-.foot{background:var(--black);padding-top:clamp(56px,8vw,90px);padding-bottom:40px}
-.foot .big{text-align:center;font-weight:300;font-size:clamp(40px,8vw,102px);line-height:1;letter-spacing:.06em;text-transform:uppercase;margin:0 0 clamp(44px,6vw,72px)}
-.foot .big em{font-style:normal;color:var(--gold)}
-.fcols{display:grid;grid-template-columns:1.3fr repeat(3,1fr);gap:34px;padding-top:40px;border-top:1px solid var(--hair)}
-.fcol h4{margin:0 0 14px;font-weight:800;font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:var(--gold)}
-.fcol a,.fcol p{display:block;font-size:14px;line-height:2.05;color:rgba(255,255,255,.64);margin:0}
-.fcol a:hover{color:#fff}
-.fcol .promise{line-height:1.65;max-width:34ch}
-.footbar{margin-top:44px;padding-top:22px;border-top:1px solid var(--hair);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.45)}
-.stripes{height:12px;background:linear-gradient(180deg,var(--gold) 0 33%,var(--orange) 33% 66%,var(--red) 66% 100%)}
-
-/* ---------- responsive ---------- */
-@media (max-width:1100px){
-  .roomtypes{grid-template-columns:repeat(3,1fr)}
-  .needs{grid-template-columns:1fr}
-}
-@media (max-width:1000px){
-  .sechead{grid-template-columns:1fr;gap:18px;align-items:start}
-  .jsteps{grid-template-columns:1fr;gap:26px}
-  .jstep{padding:0 0 0 88px;min-height:64px}
-  .jstep .jicon{position:absolute;left:0;top:0;margin:0}
-  .jstep::after{top:68px;bottom:-26px;left:31px;right:auto;width:2px;height:auto;background:linear-gradient(180deg,currentColor,rgba(255,255,255,.08))}
-  .moves{grid-template-columns:1fr}
-  .locgrid{grid-template-columns:1fr}
-  .loclist{grid-template-columns:repeat(2,1fr)}
-  .stagerow{grid-template-columns:repeat(2,1fr);gap:36px}
-  .method{grid-template-columns:1fr}
-  .tiers{grid-template-columns:1fr;max-width:560px}
-  .founderrow{grid-template-columns:1fr;gap:40px}
-  .paths{grid-template-columns:1fr}
-  .loop .wrap{grid-template-columns:1fr}
-  .fcols{grid-template-columns:repeat(2,1fr)}
-}
-@media (max-width:860px){
-  .nav .wrap{flex-wrap:wrap;gap:8px}
-  .nav img{height:60px}
-  .navlinks{flex:1 0 100%;gap:10px 16px}
-  .navlinks a{font-size:10.5px;letter-spacing:.1em}
-  .navlinks a.navcta{padding:6px 10px}
-  section[id]{scroll-margin-top:150px}
-  .pillars ul{grid-template-columns:repeat(2,1fr)}
-  .pillars li:nth-child(3){border-left:none}
-  .pillars li:nth-child(n+3){border-top:1px solid rgba(35,31,32,.18)}
-  .stratum{grid-template-columns:1fr}
-  .needs ul{grid-template-columns:repeat(3,1fr);row-gap:18px}
-}
-@media (max-width:760px){
-  /* Phones crop the banner in, so the sun lands behind the paragraph. */
-  .hero::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(20,17,18,.84) 0%,rgba(20,17,18,.7) 60%,rgba(20,17,18,.3) 100%)}
-}
-@media (max-width:620px){
-  .roomtypes{grid-template-columns:1fr}
-  .room{min-height:220px}
-  .loclist{grid-template-columns:1fr}
-  .stagerow{grid-template-columns:1fr}
-  .founder{grid-template-columns:1fr;gap:18px}
-  .founder .fphoto,.founder .fmono{width:112px;height:112px}
-  .fcols{grid-template-columns:1fr}
-  .finder form{flex-direction:column}
-  .hero .cta .btn{flex:1 1 100%}
-}
-</style>
+<link rel="preload" href="/assets/montserrat.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://buildowners.com/#org", "name": "BUILD", "alternateName": "Business United In Leadership Development", "url": "https://buildowners.com/", "logo": "https://buildowners.com/assets/logo-reverse.png", "description": "BUILD helps business owners grow stronger businesses and stronger leaders through community, accountability, education, and strategic relationships.", "email": "josh@maplecreekcoaching.com", "areaServed": [{"@type": "City", "name": "Akron"}, {"@type": "City", "name": "Independence"}, {"@type": "City", "name": "Cleveland"}, {"@type": "City", "name": "Cuyahoga Falls"}, {"@type": "City", "name": "Elyria"}, {"@type": "City", "name": "Avon"}, {"@type": "City", "name": "Medina"}, {"@type": "State", "name": "Ohio"}], "founder": [{"@type": "Person", "name": "Josh Muller", "jobTitle": "Founder and Visionary"}], "member": [{"@type": "Person", "name": "Matt LaFleur", "jobTitle": "Integrator-in-Chief"}], "sameAs": ["https://www.eventbrite.com/o/120744060089"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "BUILD", "url": "https://buildowners.com/", "publisher": {"@id": "https://buildowners.com/#org"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is BUILD?", "acceptedAnswer": {"@type": "Answer", "text": "BUILD (Business United In Leadership Development) is a community of business owners and business leaders in Northeast Ohio. Members meet at monthly breakfasts and lunches, plus workshops and happy hours, to help each other build stronger businesses and become stronger leaders."}}, {"@type": "Question", "name": "Who is BUILD for?", "acceptedAnswer": {"@type": "Answer", "text": "Business owners and business leaders at any stage, from a first-year startup to an owner getting ready to hand the business off. If you carry the weight of a business, there is a seat for you."}}, {"@type": "Question", "name": "Where do BUILD rooms meet?", "acceptedAnswer": {"@type": "Answer", "text": "Right now: the Akron Breakfast (first Tuesday, 8:00 AM) and the Akron Lunch (third Tuesday, 11:30 AM), both at Akron Family Restaurant, and the Independence Breakfast (third Tuesday, 8:00 AM) at L.A. Pete's. Avon and Medina are coming soon."}}, {"@type": "Question", "name": "What happens at a BUILD room?", "acceptedAnswer": {"@type": "Answer", "text": "Everyone introduces themselves with four quick answers: name, business, what you sell, and what you are looking for today. Then one real question goes in the middle of the table and the owners work through it together. It ends with a nugget round where every person shares one takeaway or one offer to help, and the facilitator follows up with introductions."}}, {"@type": "Question", "name": "Do I have to be a member to attend?", "acceptedAnswer": {"@type": "Answer", "text": "No. Business owners and leaders can RSVP for any room on Eventbrite, where the current ticket details are listed."}}, {"@type": "Question", "name": "How is BUILD different from other networking groups?", "acceptedAnswer": {"@type": "Answer", "text": "A BUILD room is not a room full of pitches. It is built around one honest question, peer-to-peer help from owners who have been there, and introductions that get made after the room ends."}}, {"@type": "Question", "name": "Can I start a BUILD room in my city?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. BUILD trains facilitators and supports new rooms with the full toolbox. See how to get involved."}}]}</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -377,7 +26,7 @@ section[id]{scroll-margin-top:100px}
 <nav class="nav" aria-label="Main">
   <div class="wrap">
     <a href="https://buildowners.com/" aria-label="BUILD home">
-      <img src="assets/logo-reverse.png" alt="BUILD | Business United In Leadership Development" width="300" height="92">
+      <img src="/assets/logo-reverse.png" alt="BUILD | Business United In Leadership Development" width="300" height="92">
     </a>
     <div class="navlinks">
       <a href="#rooms">Rooms</a>
@@ -590,27 +239,27 @@ section[id]{scroll-margin-top:100px}
 
     <div class="roomtypes">
       <div class="room">
-        <img src="assets/breakfast.jpg" alt="BUILD Breakfast" loading="lazy">
+        <img src="/assets/breakfast.jpg" alt="BUILD Breakfast" loading="lazy">
         <div class="rs"></div>
         <div class="rin"><h3>Breakfast</h3><p>First thing in the morning. The mastermind feel, opened up to more people.</p></div>
       </div>
       <div class="room">
-        <img src="assets/happy-hour.jpg" alt="BUILD Happy Hour" loading="lazy">
+        <img src="/assets/happy-hour.jpg" alt="BUILD Happy Hour" loading="lazy">
         <div class="rs"></div>
         <div class="rin"><h3>Happy Hour</h3><p>Pure networking. Door prizes and five-minute sponsor spotlights.</p></div>
       </div>
       <div class="room">
-        <img src="assets/lunch.jpg" alt="BUILD Lunch" loading="lazy">
+        <img src="/assets/lunch.jpg" alt="BUILD Lunch" loading="lazy">
         <div class="rs"></div>
-        <div class="rin"><h3>Lunch</h3><p>A noon table for the owners who cannot do mornings.</p></div>
+        <div class="rin"><h3>Lunch</h3><p>A midday table for the owners who cannot do mornings.</p></div>
       </div>
       <div class="room">
-        <img src="assets/workshop.jpg" alt="BUILD Workshop" loading="lazy">
+        <img src="/assets/workshop.jpg" alt="BUILD Workshop" loading="lazy">
         <div class="rs"></div>
         <div class="rin"><h3>Workshop</h3><p>Quarterly, built on one specific need. Speaker series plus luncheon.</p></div>
       </div>
       <div class="room">
-        <img src="assets/mastermind-club.jpg" alt="BUILD Mastermind Club" loading="lazy">
+        <img src="/assets/mastermind-club.jpg" alt="BUILD Mastermind Club" loading="lazy">
         <div class="rs"></div>
         <div class="rin"><h3>Mastermind Club</h3><p>Five to eight owners, monthly, in depth. Vetted one at a time.</p></div>
       </div>
@@ -721,32 +370,35 @@ section[id]{scroll-margin-top:100px}
     <div class="loclist">
       <div class="loc est" data-city="Akron" data-lat="41.0814" data-lon="-81.5190">
         <span class="loctag">Established</span>
-        <h3>Akron</h3>
+        <h3><a href="/akron-breakfast/">Akron</a></h3>
         <p class="loctype">Breakfast</p>
         <p class="locvenue">Akron Family Restaurant</p>
         <p class="locaddr">250 W Market St, Akron, OH 44303</p>
         <p class="locaddr"><a href="tel:+13303760600">330-376-0600</a></p>
         <p class="loctime">First Tuesday of the month · 8:00 AM</p>
         <a class="btn" href="https://www.eventbrite.com/o/120744060089">RSVP on Eventbrite</a>
+        <a class="more" href="/akron-breakfast/">Room details &rarr;</a>
       </div>
       <div class="loc est" data-city="Independence" data-lat="41.3820" data-lon="-81.6395">
         <span class="loctag">Established</span>
-        <h3>Independence</h3>
+        <h3><a href="/independence-breakfast/">Independence</a></h3>
         <p class="loctype">Breakfast</p>
         <p class="locvenue">L.A. Pete's</p>
         <p class="locaddr">6080 Brecksville Rd, Independence, OH 44131</p>
         <p class="loctime">Third Tuesday of the month · 8:00 AM</p>
         <a class="btn" href="https://www.eventbrite.com/o/120744060089">RSVP on Eventbrite</a>
+        <a class="more" href="/independence-breakfast/">Room details &rarr;</a>
       </div>
       <div class="loc est">
         <span class="loctag">Established</span>
-        <h3>Akron</h3>
+        <h3><a href="/akron-lunch/">Akron</a></h3>
         <p class="loctype">Lunch</p>
         <p class="locvenue">Akron Family Restaurant</p>
         <p class="locaddr">250 W Market St, Akron, OH 44303</p>
         <p class="locaddr"><a href="tel:+13303760600">330-376-0600</a></p>
         <p class="loctime">Third Tuesday of the month · 11:30 AM</p>
         <a class="btn" href="https://www.eventbrite.com/o/120744060089">RSVP on Eventbrite</a>
+        <a class="more" href="/akron-lunch/">Room details &rarr;</a>
       </div>
       <div class="loc soon">
         <span class="loctag">Coming Soon</span>
@@ -950,7 +602,7 @@ section[id]{scroll-margin-top:100px}
     </div>
     <div class="founderrow">
       <div class="founder">
-        <img class="fphoto" src="assets/josh-muller.jpg" alt="Josh Muller" loading="lazy">
+        <img class="fphoto" src="/assets/josh-muller.jpg" alt="Josh Muller" loading="lazy">
         <div>
           <h3>Josh Muller</h3>
           <p class="frole">Founder and Visionary</p>
@@ -1044,6 +696,23 @@ section[id]{scroll-margin-top:100px}
   </div>
 </section>
 
+<!-- ============ FAQ ============ -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <p class="eyebrow">Questions</p>
+    <h2 class="h2">New to BUILD?</h2>
+    <div class="faq">
+      <details><summary>What is BUILD?</summary><p>BUILD (Business United In Leadership Development) is a community of business owners and business leaders in Northeast Ohio. Members meet at monthly breakfasts and lunches, plus workshops and happy hours, to help each other build stronger businesses and become stronger leaders.</p></details>
+      <details><summary>Who is BUILD for?</summary><p>Business owners and business leaders at any stage, from a first-year startup to an owner getting ready to hand the business off. If you carry the weight of a business, there is a seat for you.</p></details>
+      <details><summary>Where do BUILD rooms meet?</summary><p>Right now: the <a href="/akron-breakfast/">Akron Breakfast</a> (first Tuesday, 8:00 AM) and the <a href="/akron-lunch/">Akron Lunch</a> (third Tuesday, 11:30 AM), both at Akron Family Restaurant, and the <a href="/independence-breakfast/">Independence Breakfast</a> (third Tuesday, 8:00 AM) at L.A. Pete's. Avon and Medina are coming soon.</p></details>
+      <details><summary>What happens at a BUILD room?</summary><p>Everyone introduces themselves with four quick answers: name, business, what you sell, and what you are looking for today. Then one real question goes in the middle of the table and the owners work through it together. It ends with a nugget round where every person shares one takeaway or one offer to help, and the facilitator follows up with introductions.</p></details>
+      <details><summary>Do I have to be a member to attend?</summary><p>No. Business owners and leaders can RSVP for any room on <a href="https://www.eventbrite.com/o/120744060089">Eventbrite</a>, where the current ticket details are listed.</p></details>
+      <details><summary>How is BUILD different from other networking groups?</summary><p>A BUILD room is not a room full of pitches. It is built around one honest question, peer-to-peer help from owners who have been there, and introductions that get made after the room ends.</p></details>
+      <details><summary>Can I start a BUILD room in my city?</summary><p>Yes. BUILD trains facilitators and supports new rooms with the full toolbox. <a href="#lead">See how to get involved</a>.</p></details>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <!-- ============ FOOTER ============ -->
@@ -1060,8 +729,12 @@ section[id]{scroll-margin-top:100px}
         <h4>For owners</h4>
         <a href="#rooms">What happens in a room</a>
         <a href="#locations">Find a room</a>
+        <a href="/akron-breakfast/">Akron Breakfast</a>
+        <a href="/independence-breakfast/">Independence Breakfast</a>
+        <a href="/akron-lunch/">Akron Lunch</a>
         <a href="#membership">Membership</a>
         <a href="#framework">The BUILD 52 Framework</a>
+        <a href="#faq">Questions</a>
       </div>
       <div class="fcol">
         <h4>Get involved</h4>
