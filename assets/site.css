@@ -18,7 +18,7 @@
   --muted-dark:rgba(35,31,32,.68);
   --wrap:1240px;
   --pad:clamp(16px,5vw,64px);
-  --sec:clamp(60px,9vw,112px);
+  --sec:clamp(36px,4.5vw,60px);
 }
 
 *{box-sizing:border-box}
@@ -45,7 +45,7 @@ a{color:inherit;text-decoration:none}
 .lead{font-size:clamp(16px,1.5vw,19px);line-height:1.6;color:var(--muted);max-width:60ch;margin:0}
 .light .lead{color:var(--muted-dark)}
 .label{font-weight:800;font-size:11px;letter-spacing:.19em;text-transform:uppercase}
-.sechead{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,72px);align-items:end;margin-bottom:clamp(36px,5vw,60px)}
+.sechead{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,72px);align-items:end;margin-bottom:clamp(24px,3vw,40px)}
 .sechead .h2{margin:0}
 .step-tag{display:inline-flex;align-items:center;gap:10px}
 .step-tag i{font-style:normal;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--gold);color:var(--black);font-size:11px;letter-spacing:0}
@@ -435,3 +435,7 @@ section[id]{scroll-margin-top:100px}
   .acrocell{display:grid;grid-template-columns:84px 1fr;column-gap:20px;align-items:start;padding:22px 22px 24px}
   .acroletter{grid-row:span 2;font-size:76px;margin:0}
 }
+
+/* Back-to-back sections on the same background: don't stack two paddings. */
+.acro{padding-bottom:0}
+.roomtypes{margin-top:clamp(24px,3vw,36px)}
