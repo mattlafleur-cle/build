@@ -409,3 +409,29 @@ section[id]{scroll-margin-top:100px}
   .morerooms{grid-template-columns:1fr}
 }
 @media (max-width:620px){.facts{grid-template-columns:1fr}}
+
+/* ---------- BUILD acronym ---------- */
+.eyebrow.acrohero{font-size:clamp(14px,1.6vw,19px);letter-spacing:.2em;color:rgba(240,179,35,.82);margin-bottom:24px}
+.eyebrow.acrohero b{color:#fff;font-size:1.3em;font-weight:800;letter-spacing:.06em}
+.acrofoot b{color:var(--gold);font-weight:800}
+.acro{background:var(--ink)}
+.acrogrid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.acrocell{background:var(--ink-2);padding:28px 24px 30px;border-top:3px solid currentColor;position:relative;overflow:hidden}
+.acrocell:nth-child(1){color:var(--gold)}
+.acrocell:nth-child(2){color:var(--amber)}
+.acrocell:nth-child(3){color:var(--orange)}
+.acrocell:nth-child(4){color:#C8433A}
+.acrocell:nth-child(5){color:#E0566B}
+.acroletter{display:block;font-weight:800;font-size:clamp(72px,8vw,112px);line-height:.9;margin-bottom:18px}
+.acrocell h3{margin:0 0 10px;font-weight:800;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:#fff}
+.acrocell:nth-child(1) h3 b{color:var(--gold)}
+.acrocell:nth-child(2) h3 b{color:var(--amber)}
+.acrocell:nth-child(3) h3 b{color:var(--orange)}
+.acrocell:nth-child(4) h3 b{color:#C8433A}
+.acrocell:nth-child(5) h3 b{color:#E0566B}
+.acrocell p{margin:0;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.7)}
+@media (max-width:1000px){
+  .acrogrid{grid-template-columns:1fr}
+  .acrocell{display:grid;grid-template-columns:84px 1fr;column-gap:20px;align-items:start;padding:22px 22px 24px}
+  .acroletter{grid-row:span 2;font-size:76px;margin:0}
+}
