@@ -259,8 +259,8 @@ section[id]{scroll-margin-top:100px}
 .team{background:var(--paper);color:var(--black)}
 .team .eyebrow{color:var(--orange)}
 .founderrow{display:grid;grid-template-columns:repeat(2,1fr);gap:56px}
-.founder{display:grid;grid-template-columns:140px 1fr;gap:28px;align-items:start}
-.founder .fphoto{width:140px;height:140px;border-radius:50%;object-fit:cover;object-position:center;filter:grayscale(1)}
+.founder{display:grid;grid-template-columns:190px 1fr;gap:28px;align-items:start}
+.founder .fphoto{width:190px;height:190px;border-radius:50%;object-fit:cover;object-position:center;filter:grayscale(1)}
 .founder .fmono{width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--black);color:var(--gold);font-weight:800;font-size:36px}
 .founder h3{margin:0 0 4px;font-weight:700;font-size:20px}
 .founder .frole{margin:0 0 12px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange)}
@@ -350,7 +350,7 @@ section[id]{scroll-margin-top:100px}
   .loclist{grid-template-columns:1fr}
   .stagerow{grid-template-columns:1fr}
   .founder{grid-template-columns:1fr;gap:18px}
-  .founder .fphoto,.founder .fmono{width:112px;height:112px}
+  .founder .fphoto,.founder .fmono{width:150px;height:150px}
   .fcols{grid-template-columns:1fr}
   .finder form{flex-direction:column}
   .hero .cta .btn{flex:1 1 100%}
