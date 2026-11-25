@@ -52,8 +52,12 @@ OFFICE_EVOLUTION = {
 ROOMS = [
     {
         "slug": "akron-breakfast",
-        # Next event's Eventbrite page (January 5, 2027). Rooms without one link to the organizer page.
-        "rsvp": "https://www.eventbrite.com/e/build-breakfast-akron-tickets-2005480836167",
+        # Dated registration links: (label, url, last day to show). Each button hides itself after its
+        # date. Rooms without any link to the Eventbrite organizer page.
+        "rsvps": [
+            ("RSVP for Dec 1", "https://www.eventbrite.com/e/build-breakfast-akron-tickets-1980485761225", "2026-12-01"),
+            ("RSVP for Jan 5", "https://buildowners.regfox.com/build-breakfast-akron", "2027-01-05"),
+        ],
         "kind": "Breakfast",
         "city": "Akron",
         "h1": "Akron Business Networking Breakfast",
@@ -222,6 +226,10 @@ def room_page(room, nav, foot, others):
     faq_html = "".join(f"""
       <details><summary>{q}</summary><p>{a}</p></details>""" for q, a in FAQ_ROOM)
 
+    rsvp_html = "\n        ".join(
+        f'<a class="btn" href="{html.escape(u)}" data-until="{until}">{html.escape(label)}</a>'
+        for label, u, until in room.get("rsvps", [])
+    ) or f'<a class="btn" href="{EVENTBRITE}">RSVP on Eventbrite</a>'
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -255,7 +263,7 @@ def room_page(room, nav, foot, others):
       <h1>{room["h1"]}</h1>
       <p class="lead">{room["intro"]}</p>
       <div class="cta">
-        <a class="btn" href="{room.get("rsvp", EVENTBRITE)}">RSVP on Eventbrite</a>
+        <span class="rsvps">{rsvp_html}</span>
         <a class="btn ghost" href="{maps_link(v)}">Get directions</a>
       </div>
     </div>
@@ -373,6 +381,11 @@ def room_page(room, nav, foot, others):
 {foot}
 
 <script>
+(function(){{
+  var d = new Date(), today = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  document.querySelectorAll('[data-until]').forEach(function(a){{ if(a.getAttribute('data-until') < today) a.remove(); }});
+  document.querySelectorAll('.rsvps').forEach(function(box){{ if(!box.querySelector('a')) box.innerHTML = '<a class="btn" href="https://www.eventbrite.com/o/120744060089">RSVP on Eventbrite</a>'; }});
+}})();
 (function(){{
   var ul = document.getElementById('nextDates');
   if(!ul) return;

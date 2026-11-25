@@ -52,7 +52,7 @@
       <h1>Akron Business Networking Lunch</h1>
       <p class="lead">The same BUILD table, at midday, for Akron owners whose mornings belong to the job site, the shop floor, or the kids. Same format, same honesty, a lunch menu.</p>
       <div class="cta">
-        <a class="btn" href="https://www.eventbrite.com/o/120744060089">RSVP on Eventbrite</a>
+        <span class="rsvps"><a class="btn" href="https://www.eventbrite.com/o/120744060089">RSVP on Eventbrite</a></span>
         <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=Akron+Family+Restaurant%2C+250+W+Market+St%2C+Akron%2C+OH+44303">Get directions</a>
       </div>
     </div>
@@ -225,6 +225,11 @@
 </footer>
 
 <script>
+(function(){
+  var d = new Date(), today = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  document.querySelectorAll('[data-until]').forEach(function(a){ if(a.getAttribute('data-until') < today) a.remove(); });
+  document.querySelectorAll('.rsvps').forEach(function(box){ if(!box.querySelector('a')) box.innerHTML = '<a class="btn" href="https://www.eventbrite.com/o/120744060089">RSVP on Eventbrite</a>'; });
+})();
 (function(){
   var ul = document.getElementById('nextDates');
   if(!ul) return;

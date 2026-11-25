@@ -52,7 +52,8 @@
       <h1>Akron Business Networking Breakfast</h1>
       <p class="lead">Start the month at a table of Akron business owners who have been where you are. One honest question, every voice heard, and introductions that actually happen.</p>
       <div class="cta">
-        <a class="btn" href="https://www.eventbrite.com/e/build-breakfast-akron-tickets-2005480836167">RSVP on Eventbrite</a>
+        <span class="rsvps"><a class="btn" href="https://www.eventbrite.com/e/build-breakfast-akron-tickets-1980485761225" data-until="2026-12-01">RSVP for Dec 1</a>
+        <a class="btn" href="https://buildowners.regfox.com/build-breakfast-akron" data-until="2027-01-05">RSVP for Jan 5</a></span>
         <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=Akron+Family+Restaurant%2C+250+W+Market+St%2C+Akron%2C+OH+44303">Get directions</a>
       </div>
     </div>
@@ -225,6 +226,11 @@
 </footer>
 
 <script>
+(function(){
+  var d = new Date(), today = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  document.querySelectorAll('[data-until]').forEach(function(a){ if(a.getAttribute('data-until') < today) a.remove(); });
+  document.querySelectorAll('.rsvps').forEach(function(box){ if(!box.querySelector('a')) box.innerHTML = '<a class="btn" href="https://www.eventbrite.com/o/120744060089">RSVP on Eventbrite</a>'; });
+})();
 (function(){
   var ul = document.getElementById('nextDates');
   if(!ul) return;

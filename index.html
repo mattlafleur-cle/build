@@ -422,7 +422,10 @@
         <p class="locvenue">Akron Family Restaurant</p>
         <p class="locaddr">250 W Market St, Akron, OH 44303</p>
         <p class="loctime">First Tuesday of the month · <span class="nowrap">8:00 to 9:30 AM</span></p>
-        <a class="btn" href="https://www.eventbrite.com/e/build-breakfast-akron-tickets-2005480836167">RSVP on Eventbrite</a>
+        <div class="rsvps">
+          <a class="btn" href="https://www.eventbrite.com/e/build-breakfast-akron-tickets-1980485761225" data-until="2026-12-01">RSVP for Dec 1</a>
+          <a class="btn" href="https://buildowners.regfox.com/build-breakfast-akron" data-until="2027-01-05">RSVP for Jan 5</a>
+        </div>
         <a class="more" href="/akron-breakfast/">Room details &rarr;</a>
       </div>
       <div class="loc est" data-city="Independence" data-lat="41.3820" data-lon="-81.6395">
@@ -817,6 +820,12 @@
 </footer>
 
 <script>
+// Dated RSVP buttons hide themselves the day after their event.
+(function(){
+  var d = new Date(), today = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  document.querySelectorAll('[data-until]').forEach(function(a){ if(a.getAttribute('data-until') < today) a.remove(); });
+  document.querySelectorAll('.rsvps').forEach(function(box){ if(!box.querySelector('a')) box.innerHTML = '<a class="btn" href="https://www.eventbrite.com/o/120744060089">RSVP on Eventbrite</a>'; });
+})();
 (function(){
   var form = document.getElementById('zipForm');
   var input = document.getElementById('zipInput');

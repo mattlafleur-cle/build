@@ -52,7 +52,7 @@
       <h1>Independence Business Networking Breakfast</h1>
       <p class="lead">A morning table just south of Cleveland for owners who are tired of carrying the business alone. Bring your hardest question and leave with people who can help.</p>
       <div class="cta">
-        <a class="btn" href="https://www.eventbrite.com/o/120744060089">RSVP on Eventbrite</a>
+        <span class="rsvps"><a class="btn" href="https://www.eventbrite.com/o/120744060089">RSVP on Eventbrite</a></span>
         <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=Office+Evolution%2C+4807+Rockside+Rd%2C+Ste+400%2C+Independence%2C+OH+44131">Get directions</a>
       </div>
     </div>
@@ -225,6 +225,11 @@
 </footer>
 
 <script>
+(function(){
+  var d = new Date(), today = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  document.querySelectorAll('[data-until]').forEach(function(a){ if(a.getAttribute('data-until') < today) a.remove(); });
+  document.querySelectorAll('.rsvps').forEach(function(box){ if(!box.querySelector('a')) box.innerHTML = '<a class="btn" href="https://www.eventbrite.com/o/120744060089">RSVP on Eventbrite</a>'; });
+})();
 (function(){
   var ul = document.getElementById('nextDates');
   if(!ul) return;

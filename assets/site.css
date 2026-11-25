@@ -447,3 +447,6 @@ section[id]{scroll-margin-top:100px}
 @media (max-width:860px){.chipnote{scroll-margin-top:190px}}
 
 .nowrap{white-space:nowrap}
+.rsvps{display:flex;flex-wrap:wrap;gap:10px}
+.loc .rsvps{margin-top:18px}
+.loc .rsvps .btn{margin-top:0}
