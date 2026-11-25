@@ -52,6 +52,8 @@ OFFICE_EVOLUTION = {
 ROOMS = [
     {
         "slug": "akron-breakfast",
+        # Next event's Eventbrite page (January 5, 2027). Rooms without one link to the organizer page.
+        "rsvp": "https://www.eventbrite.com/e/build-breakfast-akron-tickets-2005480836167",
         "kind": "Breakfast",
         "city": "Akron",
         "h1": "Akron Business Networking Breakfast",
@@ -253,7 +255,7 @@ def room_page(room, nav, foot, others):
       <h1>{room["h1"]}</h1>
       <p class="lead">{room["intro"]}</p>
       <div class="cta">
-        <a class="btn" href="{EVENTBRITE}">RSVP on Eventbrite</a>
+        <a class="btn" href="{room.get("rsvp", EVENTBRITE)}">RSVP on Eventbrite</a>
         <a class="btn ghost" href="{maps_link(v)}">Get directions</a>
       </div>
     </div>
