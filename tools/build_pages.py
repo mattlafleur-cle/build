@@ -24,6 +24,8 @@ SITE = "https://buildowners.com"
 TZ = ZoneInfo("America/New_York")
 EVENTBRITE = "https://www.eventbrite.com/o/120744060089"
 MONTHS_AHEAD = 6
+# Every BUILD room runs 90 minutes; end times are derived from each start time.
+DURATION = dt.timedelta(minutes=90)
 
 ORG = {
     "@type": "Organization",
@@ -54,10 +56,9 @@ ROOMS = [
         "city": "Akron",
         "h1": "Akron Business Networking Breakfast",
         "title": "Akron Business Networking Breakfast | BUILD",
-        "desc": "A monthly breakfast for Akron business owners and leaders. First Tuesday at 8:00 AM at Akron Family Restaurant. Real conversation, real introductions.",
+        "desc": "A monthly breakfast for Akron business owners and leaders. First Tuesday, 8:00 to 9:30 AM, at Akron Family Restaurant. Real conversation, real introductions.",
         "nth": 1, "weekday": 1, "hour": 8, "minute": 0,
         "when": "First Tuesday of the month",
-        "time": "8:00 AM",
         "venue": AFF,
         "photo": "breakfast.jpg",
         "intro": "Start the month at a table of Akron business owners who have been where you are. One honest question, every voice heard, and introductions that actually happen.",
@@ -69,10 +70,9 @@ ROOMS = [
         "city": "Independence",
         "h1": "Independence Business Networking Breakfast",
         "title": "Independence Business Networking Breakfast | BUILD",
-        "desc": "A monthly breakfast for business owners and leaders in Independence and the south Cleveland suburbs. Third Tuesday at 8:00 AM at L.A. Pete's.",
+        "desc": "A monthly breakfast for business owners and leaders in Independence and the south Cleveland suburbs. Third Tuesday, 8:00 to 9:30 AM, at L.A. Pete's.",
         "nth": 3, "weekday": 1, "hour": 8, "minute": 0,
         "when": "Third Tuesday of the month",
-        "time": "8:00 AM",
         "venue": LAPETES,
         "photo": "workshop.jpg",
         "intro": "A morning table just south of Cleveland for owners who are tired of carrying the business alone. Bring your hardest question and leave with people who can help.",
@@ -84,16 +84,29 @@ ROOMS = [
         "city": "Akron",
         "h1": "Akron Business Networking Lunch",
         "title": "Akron Business Networking Lunch | BUILD",
-        "desc": "A monthly lunch for Akron business owners and leaders who cannot do mornings. Third Tuesday at 11:30 AM at Akron Family Restaurant.",
+        "desc": "A monthly lunch for Akron business owners and leaders who cannot do mornings. Third Tuesday, 11:30 AM to 1:00 PM, at Akron Family Restaurant.",
         "nth": 3, "weekday": 1, "hour": 11, "minute": 30,
         "when": "Third Tuesday of the month",
-        "time": "11:30 AM",
         "venue": AFF,
         "photo": "lunch.jpg",
         "intro": "The same BUILD table, at midday, for Akron owners whose mornings belong to the job site, the shop floor, or the kids. Same format, same honesty, a lunch menu.",
         "lat": 41.0814, "lon": -81.5190,
     },
 ]
+
+
+def clock(d):
+    return f"{d.hour % 12 or 12}:{d.minute:02d}"
+
+
+def time_range(room):
+    """'8:00 to 9:30 AM', or '11:30 AM to 1:00 PM' when the room crosses noon."""
+    start = dt.datetime(2000, 1, 1, room["hour"], room["minute"])
+    end = start + DURATION
+    ap = lambda d: "AM" if d.hour < 12 else "PM"
+    if ap(start) == ap(end):
+        return f"{clock(start)} to {clock(end)} {ap(end)}"
+    return f"{clock(start)} {ap(start)} to {clock(end)} {ap(end)}"
 
 
 def nth_weekday(year, month, nth, weekday):
@@ -168,6 +181,7 @@ def room_page(room, nav, foot, others):
         "name": f'BUILD {room["kind"]} {room["city"]}',
         "description": room["desc"],
         "startDate": d.isoformat(),
+        "endDate": (d + DURATION).isoformat(),
         "eventStatus": "https://schema.org/EventScheduled",
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
         "location": place(v),
@@ -201,7 +215,7 @@ def room_page(room, nav, foot, others):
       <a href="/{o["slug"]}/">
         <span class="label">{o["kind"]}</span>
         <h3>{o["city"]}</h3>
-        <p>{o["when"]} · {o["time"]}<br>{o["venue"]["name"]}</p>
+        <p>{o["when"]} · <span class="nowrap">{o["time"]}</span><br>{o["venue"]["name"]}</p>
       </a>''' for o in others)
     faq_html = "".join(f"""
       <details><summary>{q}</summary><p>{a}</p></details>""" for q, a in FAQ_ROOM)
@@ -393,6 +407,8 @@ def sitemap():
 
 def main():
     nav, foot = shared_chrome()
+    for r in ROOMS:
+        r["time"] = time_range(r)
     for r in ROOMS:
         others = [o for o in ROOMS if o is not r]
         out = ROOT / r["slug"] / "index.html"
