@@ -72,6 +72,8 @@ ROOMS = [
     },
     {
         "slug": "independence-breakfast",
+        # Cancelled dates (YYYY-MM-DD). Dec 15, 2026 gives way to a special BUILD event that day.
+        "skip": ["2026-12-15"],
         "rsvps": [
             ("RSVP for Jan 19", "https://buildowners.regfox.com/build-breakfast-independence", "2027-01-19"),
         ],
@@ -89,6 +91,8 @@ ROOMS = [
     },
     {
         "slug": "akron-lunch",
+        # Cancelled dates (YYYY-MM-DD). Dec 15, 2026 gives way to a special BUILD event that day.
+        "skip": ["2026-12-15"],
         "rsvps": [
             ("RSVP for Jan 19", "https://buildowners.regfox.com/build-akron-lunch", "2027-01-19"),
         ],
@@ -131,7 +135,7 @@ def upcoming(room, start, months):
     out, y, m = [], start.year, start.month
     while len(out) < months:
         d = nth_weekday(y, m, room["nth"], room["weekday"])
-        if d >= start:
+        if d >= start and d.isoformat() not in room.get("skip", []):
             out.append(dt.datetime(d.year, d.month, d.day, room["hour"], room["minute"], tzinfo=TZ))
         m += 1
         if m > 12:
@@ -232,6 +236,10 @@ def room_page(room, nav, foot, others):
     faq_html = "".join(f"""
       <details><summary>{q}</summary><p>{a}</p></details>""" for q, a in FAQ_ROOM)
 
+    upcoming_skips = [dt.date.fromisoformat(x) for x in room.get("skip", []) if dt.date.fromisoformat(x) >= dt.date.today()]
+    skip_note = "".join(
+        f'<p class="datenote" style="color:var(--gold)">No meeting on {d.strftime("%A, %B")} {d.day}, {d.year}.</p>\n    '
+        for d in upcoming_skips)
     rsvp_html = "\n        ".join(
         f'<a class="btn" href="{html.escape(u)}" data-until="{until}">{html.escape(label)}</a>'
         for label, u, until in room.get("rsvps", [])
@@ -295,7 +303,7 @@ def room_page(room, nav, foot, others):
       </div>
       <div class="fact">
         <span class="label">Next dates</span>
-        <ul class="nextdates" id="nextDates" data-nth="{room["nth"]}" data-weekday="{room["weekday"]}">{static_dates}</ul>
+        <ul class="nextdates" id="nextDates" data-nth="{room["nth"]}" data-weekday="{room["weekday"]}" data-skip="{" ".join(room.get("skip", []))}">{static_dates}</ul>
       </div>
       <div class="fact">
         <span class="label">Who it's for</span>
@@ -303,7 +311,7 @@ def room_page(room, nav, foot, others):
         <p class="sub">No membership needed to attend.</p>
       </div>
     </div>
-    <p class="datenote">Dates follow the regular schedule. Holidays and changes are posted on <a href="{EVENTBRITE}" style="color:var(--gold)">Eventbrite</a>, so check there before you go.</p>
+    {skip_note}<p class="datenote">Dates follow the regular schedule. Holidays and changes are posted on <a href="{EVENTBRITE}" style="color:var(--gold)">Eventbrite</a>, so check there before you go.</p>
   </div>
 </section>
 
@@ -396,6 +404,8 @@ def room_page(room, nav, foot, others):
   var ul = document.getElementById('nextDates');
   if(!ul) return;
   var nth = +ul.getAttribute('data-nth'), wd = +ul.getAttribute('data-weekday');
+  var skip = (ul.getAttribute('data-skip') || '').split(' ');
+  var iso = function(d){{ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }};
   var jsDay = (wd + 1) % 7;
   var now = new Date(); now.setHours(0,0,0,0);
   var out = [], y = now.getFullYear(), m = now.getMonth();
@@ -405,7 +415,7 @@ def room_page(room, nav, foot, others):
       if(d.getDay() === jsDay && ++count === nth) break;
       d.setDate(d.getDate() + 1);
     }}
-    if(d >= now) out.push(d);
+    if(d >= now && skip.indexOf(iso(d)) < 0) out.push(d);
     if(++m > 11){{ m = 0; y++; }}
   }}
   ul.innerHTML = out.map(function(d){{

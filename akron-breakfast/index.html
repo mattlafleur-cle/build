@@ -79,7 +79,7 @@
       </div>
       <div class="fact">
         <span class="label">Next dates</span>
-        <ul class="nextdates" id="nextDates" data-nth="1" data-weekday="1"><li>Tuesday, December 1, 2026</li><li>Tuesday, January 5, 2027</li><li>Tuesday, February 2, 2027</li></ul>
+        <ul class="nextdates" id="nextDates" data-nth="1" data-weekday="1" data-skip=""><li>Tuesday, December 1, 2026</li><li>Tuesday, January 5, 2027</li><li>Tuesday, February 2, 2027</li></ul>
       </div>
       <div class="fact">
         <span class="label">Who it's for</span>
@@ -235,6 +235,8 @@
   var ul = document.getElementById('nextDates');
   if(!ul) return;
   var nth = +ul.getAttribute('data-nth'), wd = +ul.getAttribute('data-weekday');
+  var skip = (ul.getAttribute('data-skip') || '').split(' ');
+  var iso = function(d){ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); };
   var jsDay = (wd + 1) % 7;
   var now = new Date(); now.setHours(0,0,0,0);
   var out = [], y = now.getFullYear(), m = now.getMonth();
@@ -244,7 +246,7 @@
       if(d.getDay() === jsDay && ++count === nth) break;
       d.setDate(d.getDate() + 1);
     }
-    if(d >= now) out.push(d);
+    if(d >= now && skip.indexOf(iso(d)) < 0) out.push(d);
     if(++m > 11){ m = 0; y++; }
   }
   ul.innerHTML = out.map(function(d){
