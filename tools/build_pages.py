@@ -41,12 +41,12 @@ AFF = {
     "zip": "44303",
     "phone": "330-376-0600",
 }
-LAPETES = {
-    "name": "L.A. Pete's",
-    "street": "6080 Brecksville Rd",
+OFFICE_EVOLUTION = {
+    "name": "Office Evolution",
+    "street": "4807 Rockside Rd, Ste 400",
     "city": "Independence",
     "zip": "44131",
-    "phone": None,
+    "phone": "216-465-7674",
 }
 
 ROOMS = [
@@ -70,10 +70,10 @@ ROOMS = [
         "city": "Independence",
         "h1": "Independence Business Networking Breakfast",
         "title": "Independence Business Networking Breakfast | BUILD",
-        "desc": "A monthly breakfast for business owners and leaders in Independence and the south Cleveland suburbs. Third Tuesday, 8:00 to 9:30 AM, at L.A. Pete's.",
+        "desc": "A monthly breakfast for business owners and leaders in Independence and the south Cleveland suburbs. Third Tuesday, 8:00 to 9:30 AM, at Office Evolution.",
         "nth": 3, "weekday": 1, "hour": 8, "minute": 0,
         "when": "Third Tuesday of the month",
-        "venue": LAPETES,
+        "venue": OFFICE_EVOLUTION,
         "photo": "workshop.jpg",
         "intro": "A morning table just south of Cleveland for owners who are tired of carrying the business alone. Bring your hardest question and leave with people who can help.",
         "lat": 41.3820, "lon": -81.6395,
