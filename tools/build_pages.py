@@ -72,6 +72,9 @@ ROOMS = [
     },
     {
         "slug": "independence-breakfast",
+        "rsvps": [
+            ("RSVP for Jan 19", "https://buildowners.regfox.com/build-breakfast-independence", "2027-01-19"),
+        ],
         "kind": "Breakfast",
         "city": "Independence",
         "h1": "Independence Business Networking Breakfast",
