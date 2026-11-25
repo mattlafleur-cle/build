@@ -89,6 +89,9 @@ ROOMS = [
     },
     {
         "slug": "akron-lunch",
+        "rsvps": [
+            ("RSVP for Jan 19", "https://buildowners.regfox.com/build-akron-lunch", "2027-01-19"),
+        ],
         "kind": "Lunch",
         "city": "Akron",
         "h1": "Akron Business Networking Lunch",
