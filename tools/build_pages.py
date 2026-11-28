@@ -447,6 +447,7 @@ HOLIDAY = {
     "start": dt.datetime(2026, 12, 17, 16, 0, tzinfo=TZ),
     "end": dt.datetime(2026, 12, 17, 19, 0, tzinfo=TZ),
     "rsvp_by": "December 14",
+    "rsvp_url": "https://buildowners.regfox.com/holiday-party-2026",
     "venue": COMMONS,
 }
 
@@ -483,7 +484,7 @@ def holiday_page(ev, nav, foot):
             + f'&dates={ev["start"]:%Y%m%dT%H%M%S}/{ev["end"]:%Y%m%dT%H%M%S}&ctz=America/New_York'
             + "&location=" + quote_plus(f'{v["name"]}, {address_line(v)}')
             + "&details=" + quote_plus(f"Holiday party for the BUILD community, co-hosted with Maple Creek Advisors. Details: {url}"))
-    rsvp = MAILTO + quote_plus("Holiday Party RSVP, December 17").replace("+", "%20")
+    rsvp = ev["rsvp_url"]
     sponsor = MAILTO + quote_plus("Holiday Party sponsorship").replace("+", "%20")
     event_ld = {
         "@context": "https://schema.org",
@@ -498,7 +499,7 @@ def holiday_page(ev, nav, foot):
         "location": place(v),
         "image": [f"{SITE}/assets/og-holiday-party.jpg"],
         "organizer": [ORG, {"@type": "Organization", "name": "Maple Creek Advisors", "url": "https://maplecreekadvisors.com/"}],
-        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD", "url": url,
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD", "url": rsvp,
                    "availability": "https://schema.org/InStock", "validThrough": "2026-12-14T23:59:00-05:00"},
         "url": url,
     }
@@ -549,7 +550,7 @@ def holiday_page(ev, nav, foot):
       <p class="lead">Business owners, leaders, and friends of BUILD: join us for an evening to celebrate the year together. Food, drinks, a few short words, and good company. Co-hosted with Maple Creek Advisors.</p>
       <p class="chipnote evbadge">Free · Please RSVP by {ev["rsvp_by"]}</p>
       <div class="cta" id="evcta">
-        <a class="btn" href="{html.escape(rsvp)}">RSVP</a>
+        <a class="btn" href="{html.escape(rsvp)}" target="_blank" rel="noopener">RSVP</a>
         <a class="btn ghost" href="/{ev["slug"]}/build-holiday-party-2026-12-17.ics">Add to calendar</a>
         <a class="btn ghost" href="{html.escape(gcal)}" target="_blank" rel="noopener">Google Calendar</a>
       </div>
@@ -641,9 +642,9 @@ def holiday_page(ev, nav, foot):
   <div class="wrap">
     <p class="eyebrow">RSVP</p>
     <h2 class="h2">Let us know you are coming.</h2>
-    <p class="lead">A quick email lets us plan food and drinks for you. Please RSVP by {ev["rsvp_by"]}.</p>
+    <p class="lead">RSVP online so we can plan food and drinks for you. Please RSVP by {ev["rsvp_by"]}. The form opens in a new tab.</p>
     <div class="cta" style="margin-top:24px;display:flex;gap:14px;flex-wrap:wrap" id="evcta2">
-      <a class="btn" href="{html.escape(rsvp)}">RSVP by email</a>
+      <a class="btn" href="{html.escape(rsvp)}" target="_blank" rel="noopener">RSVP now</a>
     </div>
   </div>
 </section>
