@@ -26,7 +26,7 @@ DTSTAMP:20261128T120000Z
 DTSTART;TZID=America/New_York:20261217T160000
 DTEND;TZID=America/New_York:20261217T190000
 SUMMARY:BUILD Holiday Party
-LOCATION:The Commons\, 111 Stow Avenue\, Cuyahoga Falls\, OH
+LOCATION:The Business Commons of Cuyahoga Falls\, 111 Stow Ave, Suite 200\, Cuyahoga Falls\, OH
 DESCRIPTION:Holiday party for the BUILD community\, co-hosted with Maple Creek Advisors. Details: https://buildowners.com/holiday-party/
 URL:https://buildowners.com/holiday-party/
 END:VEVENT

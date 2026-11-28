@@ -431,9 +431,9 @@ def room_page(room, nav, foot, others):
 # One-off BUILD events. Each gets its own page at /<slug>/ and stays in the sitemap through its date.
 # Facts match maplecreekadvisors.com/holiday-party/ (Matt, 2026-11-28). Keep the two pages in sync.
 COMMONS = {
-    "name": "The Commons",
-    "note": "A co-working space owned and operated by the Greater Akron Chamber",
-    "street": "111 Stow Avenue",
+    "name": "The Business Commons of Cuyahoga Falls",
+    "note": "A co-working space owned and operated by the Greater Akron Chamber, at the corner of Front Street and Stow Avenue",
+    "street": "111 Stow Ave, Suite 200",
     "city": "Cuyahoga Falls",
     "zip": "44221",
 }
