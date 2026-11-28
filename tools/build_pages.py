@@ -428,9 +428,250 @@ def room_page(room, nav, foot, others):
 '''
 
 
+# One-off BUILD events. Each gets its own page at /<slug>/ and stays in the sitemap through its date.
+# Facts match maplecreekadvisors.com/holiday-party/ (Matt, 2026-11-28). Keep the two pages in sync.
+COMMONS = {
+    "name": "The Commons",
+    "note": "A co-working space owned and operated by the Greater Akron Chamber",
+    "street": "111 Stow Avenue",
+    "city": "Cuyahoga Falls",
+    "zip": "44221",
+}
+
+HOLIDAY = {
+    "slug": "holiday-party",
+    "until": "2026-12-17",
+    "title": "BUILD Holiday Party, December 17 in Cuyahoga Falls | BUILD",
+    "desc": "A free holiday party for the BUILD community, co-hosted with Maple Creek Advisors. Thursday, December 17, 4:00 to 7:00 PM, at The Commons in Cuyahoga Falls.",
+    "name": "BUILD Holiday Party",
+    "start": dt.datetime(2026, 12, 17, 16, 0, tzinfo=TZ),
+    "end": dt.datetime(2026, 12, 17, 19, 0, tzinfo=TZ),
+    "rsvp_by": "December 14",
+    "venue": COMMONS,
+}
+
+MAILTO = "mailto:josh@maplecreekadvisors.com?cc=matt@maplecreekadvisors.com&subject="
+
+
+def ics(ev, url):
+    f = lambda d: d.strftime("%Y%m%dT%H%M%S")
+    v = ev["venue"]
+    loc = f'{v["name"]}\\, {v["street"]}\\, {v["city"]}\\, OH'
+    return "\r\n".join([
+        "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//BUILD//Events//EN", "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
+        "BEGIN:VTIMEZONE", "TZID:America/New_York",
+        "BEGIN:STANDARD", "DTSTART:19701101T020000", "RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU",
+        "TZOFFSETFROM:-0400", "TZOFFSETTO:-0500", "TZNAME:EST", "END:STANDARD",
+        "BEGIN:DAYLIGHT", "DTSTART:19700308T020000", "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU",
+        "TZOFFSETFROM:-0500", "TZOFFSETTO:-0400", "TZNAME:EDT", "END:DAYLIGHT",
+        "END:VTIMEZONE", "BEGIN:VEVENT",
+        f'UID:{ev["slug"]}-{ev["start"]:%Y%m%d}@buildowners.com',
+        "DTSTAMP:20261128T120000Z",
+        f'DTSTART;TZID=America/New_York:{f(ev["start"])}',
+        f'DTEND;TZID=America/New_York:{f(ev["end"])}',
+        f'SUMMARY:{ev["name"]}',
+        f"LOCATION:{loc}",
+        f"DESCRIPTION:Holiday party for the BUILD community\\, co-hosted with Maple Creek Advisors. Details: {url}",
+        f"URL:{url}",
+        "END:VEVENT", "END:VCALENDAR", ""])
+
+
+def holiday_page(ev, nav, foot):
+    v = ev["venue"]
+    url = f'{SITE}/{ev["slug"]}/'
+    gcal = ("https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + quote_plus(ev["name"])
+            + f'&dates={ev["start"]:%Y%m%dT%H%M%S}/{ev["end"]:%Y%m%dT%H%M%S}&ctz=America/New_York'
+            + "&location=" + quote_plus(f'{v["name"]}, {address_line(v)}')
+            + "&details=" + quote_plus(f"Holiday party for the BUILD community, co-hosted with Maple Creek Advisors. Details: {url}"))
+    rsvp = MAILTO + quote_plus("Holiday Party RSVP, December 17").replace("+", "%20")
+    sponsor = MAILTO + quote_plus("Holiday Party sponsorship").replace("+", "%20")
+    event_ld = {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": ev["name"],
+        "description": ev["desc"],
+        "startDate": ev["start"].isoformat(),
+        "endDate": ev["end"].isoformat(),
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "isAccessibleForFree": True,
+        "location": place(v),
+        "image": [f"{SITE}/assets/og-holiday-party.jpg"],
+        "organizer": [ORG, {"@type": "Organization", "name": "Maple Creek Advisors", "url": "https://maplecreekadvisors.com/"}],
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD", "url": url,
+                   "availability": "https://schema.org/InStock", "validThrough": "2026-12-14T23:59:00-05:00"},
+        "url": url,
+    }
+    crumbs = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "BUILD", "item": SITE + "/"},
+            {"@type": "ListItem", "position": 2, "name": "Holiday Party", "item": url},
+        ],
+    }
+    ld = "\n".join(f'<script type="application/ld+json">{json.dumps(x)}</script>' for x in [event_ld, crumbs])
+    t, d = html.escape(ev["title"]), html.escape(ev["desc"])
+    return f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{t}</title>
+<meta name="description" content="{d}">
+<link rel="canonical" href="{url}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{t}">
+<meta property="og:description" content="{d}">
+<meta property="og:image" content="{SITE}/assets/og-holiday-party.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="{url}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#231F20">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/montserrat.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+{ld}
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+{nav}
+
+<header class="roomhero">
+  <div class="wrap">
+    <div>
+      <p class="crumbs"><a href="/">BUILD</a> &rsaquo; Holiday Party</p>
+      <p class="eyebrow">BUILD Holiday Party · Thursday, December 17</p>
+      <h1>Celebrate the year with BUILD.</h1>
+      <p class="lead">Business owners, leaders, and friends of BUILD: join us for an evening to celebrate the year together. Food, drinks, a few short words, and good company. Co-hosted with Maple Creek Advisors.</p>
+      <p class="chipnote evbadge">Free · Please RSVP by {ev["rsvp_by"]}</p>
+      <div class="cta" id="evcta">
+        <a class="btn" href="{html.escape(rsvp)}">RSVP</a>
+        <a class="btn ghost" href="/{ev["slug"]}/build-holiday-party-2026-12-17.ics">Add to calendar</a>
+        <a class="btn ghost" href="{html.escape(gcal)}" target="_blank" rel="noopener">Google Calendar</a>
+      </div>
+      <p class="evpast" id="evpast" hidden>This party has passed. Thank you to everyone who came. <a href="/#locations">Find your next BUILD room.</a></p>
+    </div>
+    <img class="evlogo" src="/assets/build-holiday.svg" alt="BUILD logo, holiday edition: Holiday Party 2026" width="640" height="330">
+  </div>
+</header>
+
+<main id="main">
+
+<section class="sec" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="facts">
+      <div class="fact">
+        <span class="label">When</span>
+        <p>Thursday, December 17, 2026</p>
+        <p class="sub">4:00 to 7:00 PM</p>
+      </div>
+      <div class="fact">
+        <span class="label">Where</span>
+        <p>{v["name"]}</p>
+        <p class="sub">{v["street"]}, {v["city"]}, OH</p>
+        <p class="sub"><a href="{html.escape(maps_link(v))}" style="color:var(--gold)">Get directions</a></p>
+      </div>
+      <div class="fact">
+        <span class="label">Cost</span>
+        <p>Free</p>
+        <p class="sub">Please RSVP by {ev["rsvp_by"]}.</p>
+      </div>
+      <div class="fact">
+        <span class="label">Hosts</span>
+        <p>BUILD</p>
+        <p class="sub">Co-hosted with Maple Creek Advisors</p>
+      </div>
+    </div>
+    <p class="datenote">{v["note"]}. Parking and arrival details are sent after you RSVP. Dress: holiday business casual.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sechead">
+      <div>
+        <p class="eyebrow">What to expect</p>
+        <h2 class="h2">An easy evening with good people.</h2>
+      </div>
+      <p class="lead">No agenda to prepare for. Come as you are, bring a friend, and enjoy the season.</p>
+    </div>
+    <div class="moves">
+      <div class="move">
+        <span class="label">Eat</span>
+        <h3>Food and beverages</h3>
+        <p>Plenty to eat and drink through the evening.</p>
+      </div>
+      <div class="move">
+        <span class="label">Celebrate</span>
+        <h3>Short remarks</h3>
+        <p>A few words to celebrate the year together.</p>
+      </div>
+      <div class="move">
+        <span class="label">Connect</span>
+        <h3>Holiday mingling</h3>
+        <p>Relaxed, festive time with owners and leaders from across the region.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="background:var(--ink-2)">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">Who is invited</p>
+      <h2 class="h2">New to BUILD? You are invited.</h2>
+      <p>BUILD members, the people and companies we work with, and friends of BUILD and Maple Creek Advisors are all welcome.</p>
+      <p>BUILD is where business owners come so they never build alone, with breakfasts, lunches, happy hours, and workshops across Northeast Ohio. This party is the easiest way to meet the community, so bring a fellow owner with you.</p>
+      <p><a class="btn ghost" href="/#locations">Find a BUILD room near you</a></p>
+    </div>
+    <div>
+      <p class="eyebrow">Featured sponsors</p>
+      <h2 class="h2">Sponsor the evening.</h2>
+      <p>We are inviting one or two businesses to be featured sponsors of the party. Interested? Let us know.</p>
+      <p><a class="btn ghost" href="{html.escape(sponsor)}">Ask about sponsoring</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <p class="eyebrow">RSVP</p>
+    <h2 class="h2">Let us know you are coming.</h2>
+    <p class="lead">A quick email lets us plan food and drinks for you. Please RSVP by {ev["rsvp_by"]}.</p>
+    <div class="cta" style="margin-top:24px;display:flex;gap:14px;flex-wrap:wrap" id="evcta2">
+      <a class="btn" href="{html.escape(rsvp)}">RSVP by email</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+{foot}
+
+<script>
+(function(){{
+  var d = new Date(), today = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  if (today > '{ev["until"]}') {{
+    ['evcta','evcta2'].forEach(function(id){{ var el = document.getElementById(id); if (el) el.remove(); }});
+    var b = document.querySelector('.evbadge'); if (b) b.remove();
+    var p = document.getElementById('evpast'); if (p) p.hidden = false;
+  }}
+}})();
+</script>
+</body>
+</html>
+'''
+
+
 def sitemap():
     today = dt.date.today().isoformat()
     urls = [SITE + "/"] + [f'{SITE}/{r["slug"]}/' for r in ROOMS]
+    if HOLIDAY["until"] >= today:
+        urls.append(f'{SITE}/{HOLIDAY["slug"]}/')
     body = "".join(f"  <url><loc>{u}</loc><lastmod>{today}</lastmod></url>\n" for u in urls)
     return ('<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + body + "</urlset>\n")
@@ -446,6 +687,11 @@ def main():
         out.parent.mkdir(exist_ok=True)
         out.write_text(room_page(r, nav, foot, others))
         print("wrote", out.relative_to(ROOT))
+    hp = ROOT / HOLIDAY["slug"]
+    hp.mkdir(exist_ok=True)
+    (hp / "index.html").write_text(holiday_page(HOLIDAY, nav, foot))
+    (hp / "build-holiday-party-2026-12-17.ics").write_text(ics(HOLIDAY, f'{SITE}/{HOLIDAY["slug"]}/'), newline="")
+    print("wrote", (hp / "index.html").relative_to(ROOT))
     (ROOT / "sitemap.xml").write_text(sitemap())
     print("wrote sitemap.xml")
 
