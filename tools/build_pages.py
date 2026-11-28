@@ -478,6 +478,8 @@ def ics(ev, url):
 
 
 def holiday_page(ev, nav, foot):
+    # Matt, 2026-11-28: no "Let's BUILD." headline in this page's footer.
+    foot = re.sub(r'\s*<p class="big">.*?</p>', "", foot, count=1, flags=re.S)
     v = ev["venue"]
     url = f'{SITE}/{ev["slug"]}/'
     gcal = ("https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + quote_plus(ev["name"])
@@ -534,6 +536,7 @@ def holiday_page(ev, nav, foot):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/montserrat.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
+<style>.foot{{padding-top:48px}}.foot .fcols{{border-top:0;padding-top:0}}</style>
 {ld}
 </head>
 <body>
