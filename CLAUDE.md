@@ -42,6 +42,12 @@ BUILD (Business United In Leadership Development): monthly peer rooms for Northe
 - Contact emails: josh@maplecreekadvisors.com and matt@maplecreekadvisors.com.
 - Use only the approved headshots in `assets/`. No other personal photos.
 
+## Phones, tablets, and desktops
+
+- Every page must work well on phones, tablets, and desktop browsers.
+- Before asking Matt to publish a layout or page change, check it at three widths with Playwright: phone (390 px), tablet (820 px), and desktop (1280 px or wider). Confirm there is no sideways scrolling, text and buttons are readable and easy to tap, and nothing overlaps or gets cut off.
+- Show Matt a screenshot when the change is visual.
+
 ## Keep Maple Creek Advisors in sync
 
 maplecreekadvisors.com (repo `mattlafleur-cle/mca`) lists BUILD rooms in `site.config.mjs` under `build.gatherings`. When rooms, cities, or the Retreat to Advance wording change here, update that repo too and follow its own CLAUDE.md.
